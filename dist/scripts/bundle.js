@@ -35273,7 +35273,7 @@ var Authors = React.createClass({displayName: "Authors",
                    React.createElement("td", null, React.createElement("a", {href: "/#authors/" + author.id}, author.id)), 
                    React.createElement("td", null, author.firstName, " ", author.lastName)
                )     
-            )
+            );
         };
 
         return (
@@ -35347,30 +35347,35 @@ var Authors = require('./components/authors/authorPage');
 var About = require('./components/about/aboutPage');
 var Header = require('./components/common/header');
 
-var App = React.createClass({displayName: "App",
-    render: function(){
-        var Child;
+(function(win){
+    "use strict";
+    var App = React.createClass({displayName: "App",
 
-        switch(this.props.route){
-            case 'about': Child = About; break;
-            case 'authors': Child = Authors; break;
-            default: Child = Home;
+        render: function(){
+            var Child;
+
+            switch(this.props.route){
+                case 'about': Child = About; break;
+                case 'authors': Child = Authors; break;
+                default: Child = Home;
+            }
+
+            return (
+                React.createElement("div", null, 
+                    React.createElement(Header, null), 
+                    React.createElement(Child, null)
+                )
+            );
         }
+    });
 
-        return (
-            React.createElement("div", null, 
-                React.createElement(Header, null), 
-                React.createElement(Child, null)
-            )
-        );
+    function render(){
+        var route = window.location.hash.substr(1);
+        React.render(React.createElement(App, {route: route}), document.getElementById('app'));
     }
-});
 
-function render(){
-    var route = window.location.hash.substr(1);
-    React.render(React.createElement(App, {route: route}), document.getElementById('app'));
-}
+    window.addEventListener('hashchange', render);
+    render();
+})(window);
 
-window.addEventListener('hashchange', render);
-render();
 },{"./components/about/aboutPage":161,"./components/authors/authorPage":162,"./components/common/header":163,"./components/homePage":164,"jquery":1,"react":158}]},{},[165]);
