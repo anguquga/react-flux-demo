@@ -1,4 +1,5 @@
 $ = jQuery = require('jquery');
+
 var React = require('react');
 var Home = require('./components/homePage');
 var Authors = require('./components/authors/authorPage');
